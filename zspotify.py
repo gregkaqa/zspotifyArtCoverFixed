@@ -538,7 +538,7 @@ def get_song_info(song_id):
             artists.append(sanitize_data(data['name']))
         album_name = sanitize_data(info['tracks'][0]['album']["name"])
         name = sanitize_data(info['tracks'][0]['name'])
-        image_url = info['tracks'][0]['album']['images'][2]['url']
+        image_url = info['tracks'][0]['album']['images'][0]['url']
         release_year = info['tracks'][0]['album']['release_date'].split("-")[0]
         disc_number = info['tracks'][0]['disc_number']
         track_number = info['tracks'][0]['track_number']
@@ -606,10 +606,10 @@ def set_audio_tags_mutagen(filename, artists, name, album_name, release_year, di
     tags['COMM'] = COMM(encoding=3, lang=u'eng', text=u'id[spotify.com:track:'+track_id_str+']') #COMM User comment
     tags['TPE2'] = TPE2(encoding=3, text=album_artist)       # TPE2 Band/orchestra/accompaniment
     tags['APIC'] = APIC(                                     # APIC Attached (or linked) Picture.
-                        encoding=3,
+                        #encoding=3,
                         mime='image/jpeg',
                         type=3,
-                        desc=u'0',
+                        #desc=u'0',
                         data=requests.get(image_url).content)
    #tags['TCON'] = TCON(encoding=3, text=genre)              # TCON Genre - TODO
     tags.save()
